@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: music-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/music-library
+    username: admin
+    password: root
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:db/changelog/master-changelog.xml
