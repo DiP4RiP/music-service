@@ -21,4 +21,6 @@ public class UserResponse {
   String phone;
   @Schema(description = "Логин")
   String login;
+  @Schema(description = "Роль")
+  String role;
 }

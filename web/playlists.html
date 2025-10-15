@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Service - Плейлисты</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🎵 Music Service</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="playlists.html" class="nav-link active">Плейлисты</a>
+                <a href="admin.html" class="nav-link">Админ</a>
+                <button id="logoutBtn" class="btn btn-secondary">Выйти</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Проверка авторизации -->
+            <div id="authCheck" class="auth-check" style="display: none;">
+                <p>Для доступа к плейлистам необходимо войти в систему.</p>
+                <a href="index.html" class="btn btn-primary">Перейти к входу</a>
+            </div>
+
+            <!-- Основной контент -->
+            <div id="playlistsContent" class="playlists-content">
+                <div class="content-header">
+                    <h2>Управление плейлистами</h2>
+                    <button id="createPlaylistBtn" class="btn btn-primary">Создать плейлист</button>
+                </div>
+
+                <!-- Фильтры -->
+                <div class="filters-section">
+                    <select id="userFilter" class="filter-select">
+                        <option value="all">Все пользователи</option>
+                        <option value="my">Мои плейлисты</option>
+                    </select>
+                    <input type="text" id="playlistSearch" placeholder="Поиск плейлистов..." class="search-input">
+                </div>
+
+                <!-- Список плейлистов -->
+                <div id="playlistsList" class="playlists-list">
+                    <!-- Плейлисты будут загружены динамически -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно для создания плейлиста -->
+    <div id="createPlaylistModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Создать новый плейлист</h3>
+            <form id="createPlaylistForm">
+                <div class="form-group">
+                    <label for="playlistName">Название плейлиста:</label>
+                    <input type="text" id="playlistName" name="name" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Создать</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для детальной информации о плейлисте -->
+    <div id="playlistModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="playlistDetails">
+                <!-- Детали плейлиста будут загружены динамически -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для добавления музыки в плейлист -->
+    <div id="addMusicModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Добавить музыку в плейлист</h3>
+            <div class="search-section">
+                <input type="text" id="musicSearchInput" placeholder="Поиск музыки..." class="search-input">
+                <button id="searchMusicBtn" class="btn btn-primary">Поиск</button>
+            </div>
+            <div id="availableMusic" class="music-selection">
+                <!-- Доступная музыка будет загружена динамически -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

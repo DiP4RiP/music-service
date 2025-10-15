@@ -3,6 +3,8 @@ package ru.dip4rip.musicservice.service;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.dip4rip.musicservice.converter.PlaylistConverter;
 import ru.dip4rip.musicservice.dto.request.PlaylistMusicRequest;
@@ -45,7 +47,17 @@ public class PlaylistService {
   }
 
   public PlaylistResponse create(PlaylistRequest request) {
+    // Проверяем, что текущий пользователь создает плейлист для себя
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String currentUsername = authentication.getName();
+    
     return userRepository.findById(request.getUserId())
+        .map(user -> {
+          if (!user.getLogin().equals(currentUsername)) {
+            throw new RuntimeException("Доступ запрещен: вы можете создавать плейлисты только для себя");
+          }
+          return user;
+        })
         .map((user) -> playlistConverter.toEntity(request, user))
         .map(playlistRepository::save)
         .map(playlistConverter::toDto)
@@ -56,6 +68,15 @@ public class PlaylistService {
     Long playlistId = request.getPlaylistId();
     Playlist playlist = playlistRepository.findById(playlistId)
         .orElseThrow(() -> new RuntimeException(String.format("Плейлист с номером: %s не найдена", playlistId)));
+    
+    // Проверяем, что текущий пользователь является владельцем плейлиста
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    String currentUsername = authentication.getName();
+    
+    if (!playlist.getUser().getLogin().equals(currentUsername)) {
+      throw new RuntimeException("Доступ запрещен: вы можете добавлять музыку только в свои плейлисты");
+    }
+    
     List<PlaylistMusic> playlistMusics = Optional.ofNullable(request.getInventoryNumbers())
         .map(numbers -> numbers.stream()
             .map(inventoryNumber -> musicRepository.findById(inventoryNumber)

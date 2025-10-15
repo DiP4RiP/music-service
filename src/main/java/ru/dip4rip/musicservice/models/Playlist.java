@@ -1,5 +1,6 @@
 package ru.dip4rip.musicservice.models;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -32,7 +33,7 @@ public class Playlist {
   @JoinColumn(name = "user_id")
   private User user;
 
-  @OneToMany(mappedBy = "playlist", fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "playlist", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
   private Set<PlaylistMusic> playlistMusics;
 
 }

@@ -8,3 +8,35 @@ spring:
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: classpath:db/changelog/master-changelog.xml
+  security:
+    user:
+      name: admin
+      password: admin
+      roles: ADMIN
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+    show-extensions: true
+    show-common-extensions: true
+    try-it-out-enabled: true
+    filter: true
+    display-operation-id: false
+    default-models-expand-depth: 1
+    default-model-expand-depth: 1
+    doc-expansion: none
+    supported-submit-methods:
+      - get
+      - post
+      - put
+      - delete
+      - patch
+    deep-linking: true
+    show-tags: true
+    show-request-headers: true
+    persist-authorization: true

@@ -1,6 +1,5 @@
 package ru.dip4rip.musicservice.models;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -22,12 +21,12 @@ public class PlaylistMusic {
   private PlaylistMusicId id;
 
   @MapsId("playlistId")
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "playlist_id", nullable = false)
   private Playlist playlist;
 
   @MapsId("inventoryNumber")
-  @ManyToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+  @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "inventory_number", nullable = false)
   private Music music;
 

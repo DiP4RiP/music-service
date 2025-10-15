@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +25,7 @@ import ru.dip4rip.musicservice.service.UserService;
 
 import java.util.List;
 
-@Tag(name = "User", description = "Управление пользователям")
+@Tag(name = "User", description = "Управление пользователями")
 @RestController
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
@@ -33,39 +34,53 @@ public class UserController {
 
   UserService userService;
 
-  @Operation(description = "Получение пользователя по id")
+  @Operation(
+      description = "Получение пользователя по id",
+      security = @SecurityRequirement(name = "basicAuth")
+  )
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "OK",
           content = {
               @Content(mediaType = "application/json",
                   schema = @Schema(implementation = UserResponse.class))
-          })
+          }),
+      @ApiResponse(responseCode = "401", description = "Не авторизован"),
+      @ApiResponse(responseCode = "403", description = "Доступ запрещен")
   })
   @GetMapping("/{id}")
   public UserResponse findById(@PathVariable long id) {
     return userService.findById(id);
   }
 
-  @Operation(description = "Получение всех пользователей")
+  @Operation(
+      description = "Получение всех пользователей",
+      security = @SecurityRequirement(name = "basicAuth")
+  )
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "OK",
           content = {
               @Content(mediaType = "application/json",
                   array = @ArraySchema(schema = @Schema(implementation = UserResponse.class)))
-          })
+          }),
+      @ApiResponse(responseCode = "401", description = "Не авторизован"),
+      @ApiResponse(responseCode = "403", description = "Доступ запрещен")
   })
   @GetMapping()
   public List<UserResponse> findAll() {
     return userService.findAll();
   }
 
-  @Operation(description = "Создание пользователя")
+  @Operation(
+      description = "Создание пользователя (регистрация). Роль по умолчанию: USER",
+      summary = "Регистрация нового пользователя"
+  )
   @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "OK",
+      @ApiResponse(responseCode = "200", description = "Пользователь успешно создан",
           content = {
               @Content(mediaType = "application/json",
                   schema = @Schema(implementation = UserResponse.class))
-          })
+          }),
+      @ApiResponse(responseCode = "400", description = "Некорректные данные")
   })
   @PostMapping
   public UserResponse create(@RequestBody UserRequest userRequest) {

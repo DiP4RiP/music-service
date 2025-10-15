@@ -15,6 +15,7 @@ public class UserConverter {
         .address(user.getAddress())
         .phone(user.getPhone())
         .login(user.getLogin())
+        .role(user.getRole().name())
         .build();
   }
 

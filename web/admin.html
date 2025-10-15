@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Service - Админ панель</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🎵 Music Service</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="playlists.html" class="nav-link">Плейлисты</a>
+                <a href="admin.html" class="nav-link active">Админ</a>
+                <button id="logoutBtn" class="btn btn-secondary">Выйти</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Проверка авторизации и роли -->
+            <div id="authCheck" class="auth-check" style="display: none;">
+                <p>Для доступа к админ панели необходимо войти в систему.</p>
+                <a href="index.html" class="btn btn-primary">Перейти к входу</a>
+            </div>
+
+            <div id="accessDenied" class="access-denied" style="display: none;">
+                <p>Доступ запрещен. Требуется роль администратора.</p>
+                <a href="index.html" class="btn btn-primary">На главную</a>
+            </div>
+
+            <!-- Основной контент админ панели -->
+            <div id="adminContent" class="admin-content">
+                <div class="content-header">
+                    <h2>Панель администратора</h2>
+                </div>
+
+                <!-- Вкладки админ панели -->
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="music">Управление музыкой</button>
+                    <button class="tab-btn" data-tab="users">Управление пользователями</button>
+                </div>
+
+                <!-- Вкладка управления музыкой -->
+                <div id="musicTab" class="tab-content active">
+                    <div class="tab-header">
+                        <h3>Управление музыкой</h3>
+                        <button id="addMusicBtn" class="btn btn-primary">Добавить песню</button>
+                    </div>
+
+                    <!-- Поиск музыки -->
+                    <div class="search-section">
+                        <input type="text" id="adminMusicSearch" placeholder="Поиск музыки..." class="search-input">
+                        <button id="adminSearchBtn" class="btn btn-primary">Поиск</button>
+                    </div>
+
+                    <!-- Список музыки -->
+                    <div id="adminMusicList" class="admin-music-list">
+                        <!-- Музыка будет загружена динамически -->
+                    </div>
+                </div>
+
+                <!-- Вкладка управления пользователями -->
+                <div id="usersTab" class="tab-content">
+                    <div class="tab-header">
+                        <h3>Управление пользователями</h3>
+                    </div>
+
+                    <!-- Поиск пользователей -->
+                    <div class="search-section">
+                        <input type="text" id="adminUserSearch" placeholder="Поиск пользователей..." class="search-input">
+                        <button id="adminUserSearchBtn" class="btn btn-primary">Поиск</button>
+                    </div>
+
+                    <!-- Список пользователей -->
+                    <div id="adminUsersList" class="admin-users-list">
+                        <!-- Пользователи будут загружены динамически -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно для добавления музыки -->
+    <div id="addMusicModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Добавить новую песню</h3>
+            <form id="addMusicForm">
+                <div class="form-group">
+                    <label for="musicTitle">Название:</label>
+                    <input type="text" id="musicTitle" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicGenre">Жанр ID:</label>
+                    <input type="number" id="musicGenre" name="genreId" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicPerformer">Исполнитель ID:</label>
+                    <input type="number" id="musicPerformer" name="performerId" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicComposer">Композитор ID:</label>
+                    <input type="number" id="musicComposer" name="composerId" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicMediaType">Тип носителя ID:</label>
+                    <input type="number" id="musicMediaType" name="mediaTypeId" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicRecordLabel">Студия записи ID:</label>
+                    <input type="number" id="musicRecordLabel" name="recordLabelId" required>
+                </div>
+                <div class="form-group">
+                    <label for="musicRecordingDate">Дата записи:</label>
+                    <input type="date" id="musicRecordingDate" name="recordingDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно для детальной информации о пользователе -->
+    <div id="userModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="userDetails">
+                <!-- Детали пользователя будут загружены динамически -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

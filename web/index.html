@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Service - Главная</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">🎵 Music Service</h1>
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">Главная</a>
+                <a href="playlists.html" class="nav-link">Плейлисты</a>
+                <a href="admin.html" class="nav-link">Админ</a>
+                <button id="logoutBtn" class="btn btn-secondary">Выйти</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <!-- Форма входа/регистрации (показывается если не авторизован) -->
+            <div id="authSection" class="auth-section">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Вход</button>
+                    <button class="tab-btn" data-tab="register">Регистрация</button>
+                </div>
+
+                <!-- Форма входа -->
+                <form id="loginForm" class="auth-form active">
+                    <h2>Вход в систему</h2>
+                    <div class="form-group">
+                        <label for="loginUsername">Логин:</label>
+                        <input type="text" id="loginUsername" name="login" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Пароль:</label>
+                        <input type="password" id="loginPassword" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                </form>
+
+                <!-- Форма регистрации -->
+                <form id="registerForm" class="auth-form">
+                    <h2>Регистрация</h2>
+                    <div class="form-group">
+                        <label for="registerFullName">Полное имя:</label>
+                        <input type="text" id="registerFullName" name="fullName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerAddress">Адрес:</label>
+                        <input type="text" id="registerAddress" name="address" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPhone">Телефон:</label>
+                        <input type="tel" id="registerPhone" name="phone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerUsername">Логин:</label>
+                        <input type="text" id="registerUsername" name="login" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Пароль:</label>
+                        <input type="password" id="registerPassword" name="password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                </form>
+            </div>
+
+            <!-- Основной контент (показывается после авторизации) -->
+            <div id="mainContent" class="main-content" style="display: none;">
+                <div class="content-header">
+                    <h2>Каталог музыки</h2>
+                    <div class="user-info">
+                        <span id="userInfo">Добро пожаловать!</span>
+                    </div>
+                </div>
+
+                <!-- Поиск и фильтры -->
+                <div class="search-section">
+                    <input type="text" id="searchInput" placeholder="Поиск по названию, исполнителю, композитору..." class="search-input">
+                    <button id="searchBtn" class="btn btn-primary">Поиск</button>
+                </div>
+
+                <!-- Список песен -->
+                <div id="musicList" class="music-list">
+                    <!-- Песни будут загружены динамически -->
+                </div>
+
+                <!-- Пагинация -->
+                <div id="pagination" class="pagination">
+                    <!-- Пагинация будет создана динамически -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Модальное окно для детальной информации о песне -->
+    <div id="musicModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="musicDetails">
+                <!-- Детали песни будут загружены динамически -->
+            </div>
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
